@@ -1,7 +1,11 @@
 package com.bridgelabz.springemployeepayroll.controller;
+import com.bridgelabz.springemployeepayroll.Dto.EmployeeDTO;
+import com.bridgelabz.springemployeepayroll.Dto.ResponseDTO;
 import com.bridgelabz.springemployeepayroll.Entity.Employee;
 import com.bridgelabz.springemployeepayroll.service.IEmployeePayrollService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,30 +21,36 @@ public class EmployeePayrollController {
         return msg;
     }
     @PostMapping("/AddEmployee")
-    public String getEmployee(@RequestBody Employee employee){
-        String addEmployee=service.AddEmployee(employee);
-        return addEmployee;
+    public ResponseEntity<ResponseDTO> AddEmployee(@RequestBody EmployeeDTO employeeDTO)
+    {
+        String AddEmployee=service.AddEmployee(employeeDTO);
+        ResponseDTO response=new ResponseDTO("Employee Added successfully",AddEmployee);
+        return new ResponseEntity<>(response,HttpStatus.OK);
     }
     @GetMapping("/getEmployee/{getId}")
-    public Employee getEmployee(@PathVariable int getId)
+    public ResponseEntity<ResponseDTO> getEmployee(@PathVariable int getId)
     {
        Employee employee=service.getEmployeeDetails(getId);
-        return employee;
+       ResponseDTO response=new ResponseDTO("Call for id Successful ",employee);
+        return new ResponseEntity<>(response,HttpStatus.OK);
     }
     @GetMapping("/getEmployees")
-    public List<Employee> getEmployees()
+    public ResponseEntity<ResponseDTO> getEmployees()
     {
         List<Employee> employees=service.getListOfEmployees();
-        return employees;
+        ResponseDTO response=new ResponseDTO("call for employees Successful",employees);
+        return  new ResponseEntity<>(response,HttpStatus.OK);
     }
     @DeleteMapping("/delete")
-    public String deleteEmployee(@RequestParam int id){
+    public ResponseEntity<ResponseDTO> deleteEmployee(@RequestParam int id){
         service.deleteEmployee(id);
-        return "Deleted....!";
+        ResponseDTO response=new ResponseDTO("deleted employee successfully  ",id);
+        return new ResponseEntity<>(response,HttpStatus.OK);
     }
     @PutMapping("/updateEmployee/{getId}")
-    public Employee updateEmployee(@PathVariable int getId,@RequestBody Employee employee){
-        Employee newEmployee=service.updateEmployee(getId,employee);
-        return newEmployee;
+    public ResponseEntity<ResponseDTO> updateEmployee(@PathVariable int getId,@RequestBody EmployeeDTO employeedto){
+        Employee newEmployee=service.updateEmployee(getId,employeedto);
+        ResponseDTO response=new ResponseDTO("Updated Employee details Successfully ",newEmployee);
+        return new ResponseEntity<>(response,HttpStatus.OK);
     }
 }

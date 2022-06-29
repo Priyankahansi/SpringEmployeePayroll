@@ -1,18 +1,8 @@
-package com.bridgelabz.springemployeepayroll.Entity;
+package com.bridgelabz.springemployeepayroll.Dto;
 
-import com.bridgelabz.springemployeepayroll.Dto.EmployeeDTO;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import java.time.LocalDate;
 
-@Entity
-public class Employee {
-
-    @Id
-    @GeneratedValue
-    private int id;
+public class EmployeeDTO {
     private String gender;
 
     private String employeeName;
@@ -23,12 +13,11 @@ public class Employee {
     private String profilePic;
     private String note;
 
-    public Employee() {
+    public EmployeeDTO() {
     }
 
-    public Employee(int id, String gender, String employeeName, String department, long salary,
-                    String email, LocalDate date, String profilePic, String note) {
-        this.id = id;
+    public EmployeeDTO(String gender, String employeeName, String department,
+                       long salary, String email, LocalDate date, String profilePic, String note) {
         this.gender = gender;
         this.employeeName = employeeName;
         this.department = department;
@@ -37,25 +26,6 @@ public class Employee {
         Date = date;
         this.profilePic = profilePic;
         this.note = note;
-    }
-
-    public Employee(EmployeeDTO employeeDto) {
-        this.gender = employeeDto.getGender();
-        this.employeeName = employeeDto.getEmployeeName();
-        this.department = employeeDto.getDepartment();
-        this.salary = employeeDto.getSalary();
-        this.email = employeeDto.getEmail();
-        Date = employeeDto.getDate();
-        this.profilePic = employeeDto.getProfilePic();
-        this.note = employeeDto.getNote();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getGender() {
@@ -124,9 +94,8 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", gender='" + gender + '\'' +
+        return "EmployeeDTO{" +
+                "gender='" + gender + '\'' +
                 ", employeeName='" + employeeName + '\'' +
                 ", department='" + department + '\'' +
                 ", salary=" + salary +

@@ -1,5 +1,6 @@
 package com.bridgelabz.springemployeepayroll.service;
 
+import com.bridgelabz.springemployeepayroll.Dto.EmployeeDTO;
 import com.bridgelabz.springemployeepayroll.Entity.Employee;
 import com.bridgelabz.springemployeepayroll.Repository.EmployeePayrollRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,6 @@ public class EmployeePayrollService implements IEmployeePayrollService {
         return "hello Welcome to employee payroll";
     }
 
-    @Override
-    public String AddEmployee(Employee employee) {
-        repo.save(employee);
-        return employee.toString();
-    }
 
     @Override
     public Employee getEmployeeDetails(int getId) {
@@ -44,22 +40,29 @@ public class EmployeePayrollService implements IEmployeePayrollService {
     }
 
     @Override
-    public Employee updateEmployee(int getId, Employee employee) {
+    public Employee updateEmployee(int getId, EmployeeDTO employeedto) {
         Optional<Employee> newEmployee = repo.findById(getId);
         if (newEmployee.isPresent()) {
-            newEmployee.get().setGender(employee.getGender());
-            newEmployee.get().setDepartment(employee.getDepartment());
-            newEmployee.get().setEmail(employee.getEmail());
-            newEmployee.get().setNote(employee.getNote());
-            newEmployee.get().setSalary(employee.getSalary());
-            newEmployee.get().setDate(employee.getDate());
-            newEmployee.get().setProfilePic(employee.getProfilePic());
-            newEmployee.get().setEmployeeName(employee.getEmployeeName());
+            newEmployee.get().setGender(employeedto.getGender());
+            newEmployee.get().setDepartment(employeedto.getDepartment());
+            newEmployee.get().setEmail(employeedto.getEmail());
+            newEmployee.get().setNote(employeedto.getNote());
+            newEmployee.get().setSalary(employeedto.getSalary());
+            newEmployee.get().setDate(employeedto.getDate());
+            newEmployee.get().setProfilePic(employeedto.getProfilePic());
+            newEmployee.get().setEmployeeName(employeedto.getEmployeeName());
             repo.save(newEmployee.get());
             return newEmployee.get();
         } else {
             return null;
         }
+    }
+
+    @Override
+    public String AddEmployee(EmployeeDTO employeedto) {
+        Employee employee=new Employee(employeedto);
+        repo.save(employee);
+        return employee.toString();
     }
 }
 
