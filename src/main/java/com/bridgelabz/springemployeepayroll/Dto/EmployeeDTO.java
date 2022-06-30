@@ -1,108 +1,39 @@
 package com.bridgelabz.springemployeepayroll.Dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
+@Data
+@ToString
+@NoArgsConstructor
 public class EmployeeDTO {
+    @Pattern(regexp = "male|female",message = "Gender needs to be male or female ")
     private String gender;
 
+    @Pattern(regexp = "^[A-Z]{1}[a-zA-Z\\s]{2,}$",message = "Inavlid name...!")
     private String employeeName;
+
+  @NotNull(message = "department name should not be null")
     private String department;
+
+    @Min(value = 10000,message = "Minimum salary should be more then 10000")
     private long salary;
+
     private String email;
+
+    @JsonFormat(pattern = "yyyy/MM/dd")
+    @NotNull(message = "StartDate Should not be Empty")
     private LocalDate Date;
+
     private String profilePic;
+
+    @NotBlank(message = "Note cannot be blank")
     private String note;
-
-    public EmployeeDTO() {
-    }
-
-    public EmployeeDTO(String gender, String employeeName, String department,
-                       long salary, String email, LocalDate date, String profilePic, String note) {
-        this.gender = gender;
-        this.employeeName = employeeName;
-        this.department = department;
-        this.salary = salary;
-        this.email = email;
-        Date = date;
-        this.profilePic = profilePic;
-        this.note = note;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getEmployeeName() {
-        return employeeName;
-    }
-
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public long getSalary() {
-        return salary;
-    }
-
-    public void setSalary(long salary) {
-        this.salary = salary;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public LocalDate getDate() {
-        return Date;
-    }
-
-    public void setDate(LocalDate date) {
-        Date = date;
-    }
-
-    public String getProfilePic() {
-        return profilePic;
-    }
-
-    public void setProfilePic(String profilePic) {
-        this.profilePic = profilePic;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    @Override
-    public String toString() {
-        return "EmployeeDTO{" +
-                "gender='" + gender + '\'' +
-                ", employeeName='" + employeeName + '\'' +
-                ", department='" + department + '\'' +
-                ", salary=" + salary +
-                ", email='" + email + '\'' +
-                ", Date=" + Date +
-                ", profilePic='" + profilePic + '\'' +
-                ", note='" + note + '\'' +
-                '}';
-    }
 }
