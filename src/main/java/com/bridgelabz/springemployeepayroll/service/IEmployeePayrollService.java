@@ -18,4 +18,6 @@ public interface IEmployeePayrollService {
 
     String AddEmployee(EmployeeDTO employeeDTO);
 
+    List<Employee> getEmployeeDepartment(String department);
+
 }

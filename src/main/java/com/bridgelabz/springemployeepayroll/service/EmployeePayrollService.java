@@ -64,5 +64,10 @@ public class EmployeePayrollService implements IEmployeePayrollService {
         repo.save(employee);
         return employee.toString();
     }
+
+    @Override
+    public List<Employee> getEmployeeDepartment(String department) {
+        return repo.findEmployeeByDepartment(department);
+    }
 }
 
