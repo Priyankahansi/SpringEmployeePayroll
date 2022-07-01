@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.ElementCollection;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 
@@ -36,4 +37,7 @@ public class EmployeeDTO {
 
     @NotBlank(message = "Note cannot be blank")
     private String note;
+
+
+
 }

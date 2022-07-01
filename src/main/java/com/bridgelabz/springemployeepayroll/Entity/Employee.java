@@ -7,23 +7,26 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
+@Table(name = "employee")
 @Data
 @NoArgsConstructor
 @ToString
+
 public class Employee {
 
     @Id
-    @GeneratedValue
+   @GeneratedValue(strategy = GenerationType.AUTO)
+   @Column (name="id")
     private int id;
     private String gender;
-    private String employeeName;
+    @Column(name="name")
+   private String employeeName;
     private String department;
     private long salary;
     private String email;
@@ -31,10 +34,16 @@ public class Employee {
     private String profilePic;
     private String note;
 
+    @ElementCollection
+    @CollectionTable(name="employee_Department",joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "department")
+    private List<String>departments;
+
+
     public Employee(EmployeeDTO employeeDto) {
         this.gender = employeeDto.getGender();
         this.employeeName = employeeDto.getEmployeeName();
-        this.department = employeeDto.getDepartment();
+        this.department=employeeDto.getDepartment();
         this.salary = employeeDto.getSalary();
         this.email = employeeDto.getEmail();
         Date = employeeDto.getDate();
